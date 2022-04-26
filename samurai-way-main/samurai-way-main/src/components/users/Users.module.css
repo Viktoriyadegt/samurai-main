@@ -1,0 +1,8 @@
+.photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 200px;
+}
+.selectedPage {
+    font-weight: bold;
+}

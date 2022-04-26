@@ -1,0 +1,21 @@
+.nav {
+    grid-area: n;
+    background-color: cornflowerblue;
+
+
+}
+.item a {
+    color: white;
+    text-decoration: none;
+}
+
+.item a.active {
+    color: gold;
+}
+
+.def{
+    color: green;
+}
+.com {
+    color: #ec997d;
+}
