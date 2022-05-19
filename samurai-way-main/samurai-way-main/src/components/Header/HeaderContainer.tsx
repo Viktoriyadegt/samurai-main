@@ -9,8 +9,6 @@ type ResponseType = {
     id: number
     email: string
     login: string
-
-
     resultCode: number
     messages: string
 

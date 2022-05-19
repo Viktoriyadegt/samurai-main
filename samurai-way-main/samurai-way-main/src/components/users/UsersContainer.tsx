@@ -18,12 +18,15 @@ type ResponseType = {
     items: Array<UsersPropsType>
     totalCount: number
     error: string
+    //resultCode: number
 }
 
 class UsersContainer extends React.Component<UsersType> {
     componentDidMount() {
         this.props.toggleIsFetchingAC(true)
-        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.users}&count=${this.props.usersPage.pageSize}`)
+        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.users}&count=${this.props.usersPage.pageSize}`,{
+            withCredentials: true
+        })
             .then(response => {
                 this.props.toggleIsFetchingAC(false)
                 this.props.setUsersAC(response.data.items);
@@ -34,7 +37,9 @@ class UsersContainer extends React.Component<UsersType> {
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetchingAC(true)
         this.props.setCurrentPageAC(pageNumber)
-        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`)
+        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`, {
+            withCredentials: true
+        })
             .then(response => {
                 this.props.toggleIsFetchingAC(false)
                 return this.props.setUsersAC(response.data.items);
