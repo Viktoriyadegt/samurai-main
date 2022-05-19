@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
-import {DataType, InitialStateType} from "../redux/auth-reducer";
+import {DataType, InitialStateType} from "../../redux/auth-reducer";
 
 type HeaderPropsType = {
     auth: InitialStateType

@@ -17,23 +17,8 @@ type PhotosType = {
     photos: PhotosType
     followed: boolean
     status: string
-    //location: LocationPropsType
 }
 
-/*
-export type LocationPropsType = {
-    city: string
-    country: string
-}
-*/
-
-//
-// export type InitialStateType = {
-//     users: Array<UsersPropsType>
-//     totalUsersCount: number
-//     pageSize: number
-//     currentPage: number
-// }
 export type InitialStateType = typeof initialState
 const initialState = {
     users: [] as Array<UsersPropsType>,

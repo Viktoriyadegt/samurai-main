@@ -1,9 +1,9 @@
 import React from "react";
 
-import {sendMessageAC, updateNewMessageBodyAC} from "../redux/dialogs-reducer";
+import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogs-reducer";
 import {Dialogs, dialogsPageType} from "./Dialogs";
 import {connect} from "react-redux";
-import {AppStateType} from "../redux/redux-store";
+import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 
 

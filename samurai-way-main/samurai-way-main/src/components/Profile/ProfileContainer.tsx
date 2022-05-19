@@ -3,9 +3,10 @@ import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 
-import {InitialStateType1, ProfilePropsType, setUserProfile} from "../redux/profile-reducer";
-import {AppStateType} from "../redux/redux-store";
+import {InitialStateType1, ProfilePropsType, setUserProfile} from "../../redux/profile-reducer";
+import {AppStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {userAPI} from "../../API/Api";
 
 
 
@@ -20,9 +21,8 @@ class ProfileContainer extends React.Component<PropsType> {
             )
 
         }
-        axios.get<ProfilePropsType>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.setUserProfile(response.data);
+            userAPI.profile(userId).then(data => {
+                this.props.setUserProfile(data);
             })
     }
 

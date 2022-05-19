@@ -1,9 +1,9 @@
 
-import {addPostAC, onChangeNewPostAC, PostPropsType} from "../../redux/profile-reducer";
+import {addPostAC, onChangeNewPostAC, PostPropsType} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {AppStateType} from "../../redux/redux-store";
+import {AppStateType} from "../../../redux/redux-store";
 
 type MapStatePropsType = {
     posts:Array<PostPropsType>
