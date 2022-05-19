@@ -51,7 +51,6 @@ class UsersContainer extends React.Component<UsersType> {
             pages.push(i)
         }
 
-debugger
         return (
             <>
                 <div>{this.props.usersPage.isFetching ? <Preloader/> :null}</div>

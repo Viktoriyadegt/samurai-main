@@ -9,7 +9,7 @@ type ProfileProps = {
 }
 
 export const Profile: React.FC<ProfileProps> = (props) => {
-    debugger
+
     return (
         <div>
             <ProfileInfo profile={props.profile} />

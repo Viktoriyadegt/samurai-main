@@ -11,6 +11,7 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/users/UsersContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {Route} from "react-router-dom";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 
@@ -23,11 +24,11 @@ export type StatePropsType = {
 }
 
 const App: React.FC<StatePropsType> = (props) => {
-debugger
+
     return (
 
         <div className="app-wrapper">
-            <Header/>
+            <HeaderContainer/>
             <Navbar/>
             <div className="app-wrapper-components">
 

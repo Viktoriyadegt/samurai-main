@@ -3,6 +3,7 @@ import ProfileReducer from "./profile-reducer";
 import DialogsReducer from "./dialogs-reducer";
 import sideBareReducer from "./sideBare-reducer";
 import UsersReducer from "./users-reducer";
+import authReducer from "./auth-reducer";
 
 
 
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
     profilePage:ProfileReducer,
     dialogsPage:DialogsReducer,
     sideBare: sideBareReducer,
-    usersPage: UsersReducer
+    usersPage: UsersReducer,
+    auth: authReducer
 })
 
 // @ts-ignore
