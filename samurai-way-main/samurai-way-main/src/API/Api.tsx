@@ -26,6 +26,9 @@ export const userAPI = {
         return instance.get<ResponseType>(`users?page=${users}&count=${pageSize}`)
             .then(response => response.data)
     },
+}
+
+export const followAPI = {
     follow(userId: number) {
         return instance.post<ResponseType>(`follow/${userId}`)
             .then(response => response.data)
@@ -34,10 +37,16 @@ export const userAPI = {
         return instance.delete<ResponseType>(`follow/${userId}`)
             .then(response => response.data)
     },
+}
+
+export const authAPI = {
     header() {
         return instance.get<HeaderPropsType>(`auth/me`)
             .then(response => response.data)
     },
+}
+
+export const profileAPI = {
     profile(userId:number) {
         return instance.get<ProfilePropsType>(`profile/` + userId)
             .then(response => response.data)

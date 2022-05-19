@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {InitialStateType1, ProfilePropsType, setUserProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {userAPI} from "../../API/Api";
+import {profileAPI, userAPI} from "../../API/Api";
 
 
 
@@ -21,7 +21,7 @@ class ProfileContainer extends React.Component<PropsType> {
             )
 
         }
-            userAPI.profile(userId).then(data => {
+            profileAPI.profile(userId).then(data => {
                 this.props.setUserProfile(data);
             })
     }

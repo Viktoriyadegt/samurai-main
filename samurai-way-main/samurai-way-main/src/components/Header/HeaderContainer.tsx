@@ -4,7 +4,7 @@ import {Header} from "./Header";
 import {DataType, InitialStateType, setAuthDataAC} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {userAPI} from "../../API/Api";
+import {authAPI, userAPI} from "../../API/Api";
 
 export type HeaderPropsType = {
     id: number
@@ -17,7 +17,7 @@ export type HeaderPropsType = {
 
 class HeaderContainer extends React.Component<HeaderType> {
     componentDidMount() {
-            userAPI.header().then(data => {
+            authAPI.header().then(data => {
                 if (data.resultCode === null) {
                     let {id, email, login} = data
                     this.props.setAuthDataAC(id, email, login)

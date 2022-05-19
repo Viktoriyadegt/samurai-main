@@ -3,7 +3,7 @@ import {UsersPropsType} from "../../redux/users-reducer";
 import userPhoto from '../../images/images.png'
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {userAPI} from "../../API/Api";
+import {followAPI, userAPI} from "../../API/Api";
 
 
 type UserPropsType = {
@@ -40,14 +40,14 @@ export function Users(props: UserPropsType) {
                     </div>
                     <div>{
                         m.followed
-                            ? <button onClick={() => userAPI.unfollow(m.id).then(data => {
+                            ? <button onClick={() => followAPI.unfollow(m.id).then(data => {
                                 if (data.resultCode === 0) {
                                     props.unfollowAC(m.id)
                                 }
                             })
                             }>Unfollow</button>
                             : <button onClick={() => {
-                                userAPI.follow(m.id).then(data => {
+                                followAPI.follow(m.id).then(data => {
                                     if (data.resultCode === 0) {
                                         props.followAC(m.id)
                                     }
