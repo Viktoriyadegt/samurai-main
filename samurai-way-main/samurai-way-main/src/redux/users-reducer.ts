@@ -5,13 +5,14 @@ type ActionsTypes =
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalUserCountAC>
     | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof followingIsProgressAC>
 
 type PhotosType = {
     small: string
     large: string
 }
 
-  export type UsersPropsType = {
+export type UsersPropsType = {
     id: number
     name: string
     photos: PhotosType
@@ -25,7 +26,8 @@ const initialState = {
     totalUsersCount: 47,
     pageSize: 5,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followingIsProgress: [] as Array<number>
 }
 const UsersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
@@ -69,6 +71,15 @@ const UsersReducer = (state: InitialStateType = initialState, action: ActionsTyp
 
             }
         }
+        case "TOGGLE_FOLLOWING_IS_PROGRESS": {
+            return {
+                ...state,
+                followingIsProgress: action.payload.isFetching
+                    ? [...state.followingIsProgress, action.payload.userId]
+                    : state.followingIsProgress.filter(f => f !== action.payload.userId)
+
+            }
+        }
 
         default :
             return state;
@@ -105,6 +116,11 @@ export const setTotalUserCountAC = (userCount: number) => ({
 export const toggleIsFetchingAC = (isFetching: boolean) => ({
     type: 'TOGGLE_IS_FETCHING',
     payload: {isFetching}
+} as const)
+
+export const followingIsProgressAC = (isFetching: boolean, userId: number) => ({
+    type: 'TOGGLE_FOLLOWING_IS_PROGRESS',
+    payload: {isFetching, userId}
 } as const)
 
 export default UsersReducer;

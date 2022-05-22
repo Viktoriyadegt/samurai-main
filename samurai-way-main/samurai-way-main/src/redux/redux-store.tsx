@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     dialogsPage:DialogsReducer,
     sideBare: sideBareReducer,
     usersPage: UsersReducer,
-    auth: authReducer
+    auth: authReducer,
 })
 
 // @ts-ignore

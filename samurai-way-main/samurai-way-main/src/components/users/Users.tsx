@@ -3,7 +3,7 @@ import {UsersPropsType} from "../../redux/users-reducer";
 import userPhoto from '../../images/images.png'
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {followAPI, userAPI} from "../../API/Api";
+import {followAPI} from "../../API/Api";
 
 
 type UserPropsType = {
@@ -14,6 +14,8 @@ type UserPropsType = {
     currentPage: number
     onPageChanged: (pageNumber: number) => void
     totalUsersCount: number
+    followingIsProgressAC: (isFetching: boolean,userId:number)=>void
+    followingIsProgress:number []
 }
 
 export function Users(props: UserPropsType) {
@@ -25,7 +27,7 @@ export function Users(props: UserPropsType) {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    debugger
+
     return <div>
         <div>
             {pages.map((m, index) => <span key={index} className={props.currentPage === m ? styles.selectedPage : ''}
@@ -40,17 +42,21 @@ export function Users(props: UserPropsType) {
                     </div>
                     <div>{
                         m.followed
-                            ? <button onClick={() => followAPI.unfollow(m.id).then(data => {
+                            ? <button disabled={props.followingIsProgress.some(s=>s === m.id)} onClick={() => {props.followingIsProgressAC(true, m.id)
+                                followAPI.unfollow(m.id).then(data => {
                                 if (data.resultCode === 0) {
-                                    props.unfollowAC(m.id)
-                                }
+                                props.unfollowAC(m.id)
+                                    props.followingIsProgressAC(false, m.id)
+                            }
                             })
-                            }>Unfollow</button>
-                            : <button onClick={() => {
+                            }}>Unfollow</button>
+                            : <button disabled={props.followingIsProgress.some(s=>s === m.id)}onClick={() => {
+                                props.followingIsProgressAC(true, m.id)
                                 followAPI.follow(m.id).then(data => {
                                     if (data.resultCode === 0) {
                                         props.followAC(m.id)
                                     }
+                                    props.followingIsProgressAC(false, m.id)
                                 })
                             }}>Follow</button>
                     }</div>
