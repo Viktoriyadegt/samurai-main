@@ -1,4 +1,6 @@
-import {addPostAC, onChangeNewPostAC} from "./profile-reducer";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
+import {authAPI} from "../API/Api";
 
 type ActionsTypes =
     ReturnType<typeof setAuthDataAC>
@@ -36,6 +38,20 @@ export const setAuthDataAC = (id: number, email: string, login: string) => ({
     data: {id, email, login}
 
 } as const)
+
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
+
+export const getAuthData = (): ThunkType => {
+    return (dispatch, getState) => {
+        authAPI.header().then(data => {
+            if (data.resultCode === null) {
+                let {id, email, login} = data
+                dispatch(setAuthDataAC(id, email, login))
+            }
+
+        })
+    }
+}
 
 
 export default authReducer;

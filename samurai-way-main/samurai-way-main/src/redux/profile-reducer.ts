@@ -1,4 +1,7 @@
 import {sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+import {userAPI} from "../API/Api";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 type ActionsTypes =
     ReturnType<typeof addPostAC>
@@ -121,6 +124,18 @@ export const setUserProfile = (profile: ProfilePropsType): SetUserProfileType =>
     type: 'SET-USER-PROFILE',
     profile: profile
 } as const)
+
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
+
+export const getUserProfile = (userId:number) : ThunkType=> {
+    return (dispatch, getState) => {
+        userAPI.profile(userId).then(data => {
+            dispatch(setUserProfile(data));
+        })
+    }
+}
+
+
 
 
 export default ProfileReducer

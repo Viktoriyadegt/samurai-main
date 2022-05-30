@@ -1,9 +1,7 @@
 import React from 'react';
 
 import './App.css';
-import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
-
 import {News} from './components/News/News';
 import {Settings} from './components/Settings/Settings';
 import {Music} from "./components/Musik/Musik";
@@ -15,12 +13,8 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 
-
-
-
 export type StatePropsType = {
     //store: ReduxStoreType
-
 }
 
 const App: React.FC<StatePropsType> = (props) => {
@@ -31,7 +25,6 @@ const App: React.FC<StatePropsType> = (props) => {
             <HeaderContainer/>
             <Navbar/>
             <div className="app-wrapper-components">
-
 
                     <Route path={'/profile/:userId?'} render={()=><ProfileContainer />}/>
                     <Route path={'/dialogs/'} render={()=><DialogsContainer/>}/>

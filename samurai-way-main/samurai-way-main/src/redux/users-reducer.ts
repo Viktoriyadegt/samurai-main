@@ -1,3 +1,7 @@
+import { userAPI} from "../API/Api";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
+
 type ActionsTypes =
     ReturnType<typeof followAC>
     | ReturnType<typeof unFollowAC>
@@ -122,5 +126,45 @@ export const followingIsProgressAC = (isFetching: boolean, userId: number) => ({
     type: 'TOGGLE_FOLLOWING_IS_PROGRESS',
     payload: {isFetching, userId}
 } as const)
+
+ type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
+
+export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
+    return (dispatch,
+            getState) => {
+        dispatch(toggleIsFetchingAC(true))
+        userAPI.getUser(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetchingAC(false))
+            dispatch(setUsersAC(data.items));
+            dispatch(setTotalUserCountAC(data.totalCount));
+            dispatch(setCurrentPageAC(currentPage))
+        })
+    }
+}
+export const unfollow = (userId: number): ThunkType => {
+    return (dispatch,
+            getState) => {
+        dispatch(followingIsProgressAC(true, userId))
+        userAPI.unfollow(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollowAC(userId))
+                dispatch(followingIsProgressAC(false, userId))
+            }
+        })
+    }
+}
+export const follow = (userId: number): ThunkType => {
+    return (dispatch,
+            getState) => {
+        dispatch(followingIsProgressAC(true, userId))
+        userAPI.follow(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followAC(userId))
+            }
+            dispatch(followingIsProgressAC(false, userId))
+        })
+    }
+}
+
 
 export default UsersReducer;
