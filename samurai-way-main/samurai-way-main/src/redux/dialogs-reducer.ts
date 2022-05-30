@@ -33,6 +33,7 @@ let initialState = {
         {id: 5, message: "Yu"},
     ] as Array<messagePropsType>,
     newMessageBody: ''
+
 }
 const DialogsReducer = (state:InitialStateType = initialState, action:ActionsTypes):InitialStateType => {
     switch (action.type) {
