@@ -43,6 +43,7 @@ export const userAPI = {
 
 export const authAPI = {
     header() {
+        debugger
         return instance.get<HeaderPropsType>(`auth/me`)
             .then(response => response.data)
     }

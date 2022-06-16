@@ -21,6 +21,7 @@ let initialState = {
 const authReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case "SET_AUTH_DATA": {
+            debugger
             return {
                 ...state,
                 ...action.data,
@@ -43,6 +44,7 @@ type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
 export const getAuthData = (): ThunkType => {
     return (dispatch, getState) => {
+        debugger
         authAPI.header().then(data => {
             if (data.resultCode === null) {
                 let {id, email, login} = data

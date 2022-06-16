@@ -12,6 +12,7 @@ import {
 import React from "react";
 import Users from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
+import {withAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
 
 
 class UsersContainer extends React.Component<UsersType> {
@@ -82,7 +83,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     }
 )
 
-export default connect(mapStateToProps, {
+export default withAuthRedirectComponent(connect(mapStateToProps, {
     followAC,
     unFollowAC,
     setUsersAC,
@@ -94,4 +95,4 @@ export default connect(mapStateToProps, {
     unfollow,
     follow
 })
-(UsersContainer)
+(UsersContainer))
