@@ -9,10 +9,11 @@ import {
     unFollowAC,
     UsersPropsType,
 } from "../../redux/users-reducer";
-import React from "react";
+import React, {ComponentType} from "react";
 import Users from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {withAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
+import {compose} from "redux";
 
 
 class UsersContainer extends React.Component<UsersType> {
@@ -71,7 +72,7 @@ type MapDispatchPropsType = {
     followingIsProgressAC: (isFetching: boolean, userId: number) => void
     getUsers: (currentPage: number, pageSize: number) => void
     unfollow: (userId: number) => void
-    follow:(userId: number) => void
+    follow: (userId: number) => void
 
 }
 
@@ -83,16 +84,16 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     }
 )
 
-export default withAuthRedirectComponent(connect(mapStateToProps, {
-    followAC,
-    unFollowAC,
-    setUsersAC,
-    setCurrentPageAC,
-    setTotalUserCountAC,
-    toggleIsFetchingAC,
-    followingIsProgressAC,
-    getUsers,
-    unfollow,
-    follow
-})
-(UsersContainer))
+
+export default compose<ComponentType>(connect(mapStateToProps, {
+        followAC,
+        unFollowAC,
+        setUsersAC,
+        setCurrentPageAC,
+        setTotalUserCountAC,
+        toggleIsFetchingAC,
+        followingIsProgressAC,
+        getUsers,
+        unfollow,
+        follow
+    }), withAuthRedirectComponent)(UsersContainer)

@@ -7,9 +7,11 @@ import {connect} from "react-redux";
 import {authAPI, userAPI} from "../../API/Api";
 
 export type HeaderPropsType = {
-    id: number
-    email: string
-    login: string
+    data:{
+        id: number
+        email: string
+        login: string
+    }
     resultCode: number
     messages: string
 
@@ -34,7 +36,6 @@ export type MapStatePropsType = {
     auth: InitialStateType
 }
 type MapDispatchPropsType = {
-    setAuthDataAC: (id: number, email: string, login: string) => void
     getAuthData: () => void
 
 }
@@ -46,5 +47,5 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     }
 )
 
-export default connect(mapStateToProps, {setAuthDataAC, getAuthData})
+export default connect(mapStateToProps, {  getAuthData})
 (HeaderContainer)

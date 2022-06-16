@@ -14,14 +14,16 @@ export type DataType = {
 export type InitialStateType = typeof initialState
 let initialState = {
     id: 2,
-    email: 'blabla@bla.bla',
-    login: 'samurai',
+    email: 'bla@.com',
+    login: 'bls',
     isAuth: false
+
+
 }
 const authReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
+    debugger
     switch (action.type) {
         case "SET_AUTH_DATA": {
-            debugger
             return {
                 ...state,
                 ...action.data,
@@ -36,19 +38,17 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
 }
 export const setAuthDataAC = (id: number, email: string, login: string) => ({
     type: 'SET_AUTH_DATA',
-    data: {id, email, login}
+    data: {id, email, login} as const
 
-} as const)
+})
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
 export const getAuthData = (): ThunkType => {
     return (dispatch, getState) => {
-        debugger
         authAPI.header().then(data => {
-            if (data.resultCode === null) {
-                let {id, email, login} = data
-                dispatch(setAuthDataAC(id, email, login))
+            if (!data.resultCode) {
+                dispatch(setAuthDataAC(data.data.id, data.data.email, data.data.login))
             }
 
         })

@@ -5,12 +5,12 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {News} from './components/News/News';
 import {Settings} from './components/Settings/Settings';
 import {Music} from "./components/Musik/Musik";
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/users/UsersContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {Route} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 
