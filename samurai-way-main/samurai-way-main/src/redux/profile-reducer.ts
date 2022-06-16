@@ -19,7 +19,7 @@ type postPropsType = {
 export type profilePageType = {
     posts: Array<postPropsType>
     newChangePost: string
-    profile: ProfilePropsType | null
+    profile: ProfilePropsType
 }
 export type PostPropsType = {
     id: number
@@ -54,7 +54,7 @@ export type ProfilePropsType = {
 export type InitialStateType1 = {
     posts: Array<postPropsType>
     newChangePost: string
-    profile: ProfilePropsType | null
+    profile: ProfilePropsType|null
 
 }
 let initialState = {
@@ -64,9 +64,10 @@ let initialState = {
         {id: 3, message: "Blablabla", likesCount: 78},
         {id: 4, message: "Hi, my friend!", likesCount: 56},
         {id: 5, message: "YoYoYo", likesCount: 98}
-    ] ,
+    ],
     newChangePost: 'naruto',
     profile: null
+
 }
 
 
@@ -120,22 +121,24 @@ export const onChangeNewPostAC = (newChangePost: string): OnChangeNewPostACType 
     newChangePost: newChangePost
 } as const)
 
-export const setUserProfile = (profile: ProfilePropsType): SetUserProfileType => ({
-    type: 'SET-USER-PROFILE',
-    profile: profile
-} as const)
+export const setUserProfile = (profile: ProfilePropsType): SetUserProfileType => {
+    debugger
+    return {
+        type: 'SET-USER-PROFILE',
+        profile: profile
+    } as const
+}
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
-export const getUserProfile = (userId:number) : ThunkType=> {
+export const getUserProfile = (userId: number): ThunkType => {
+    debugger
     return (dispatch, getState) => {
         userAPI.profile(userId).then(data => {
             dispatch(setUserProfile(data));
         })
     }
 }
-
-
 
 
 export default ProfileReducer

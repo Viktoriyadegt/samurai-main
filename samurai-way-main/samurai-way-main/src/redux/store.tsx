@@ -121,7 +121,7 @@ const store: StorePropsType = {
         return this._state
     },
     dispatch(action) {
-        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+        //this._state.profilePage = ProfileReducer(this._state.profilePage, action)
         this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
         this._state.sideBare = SideBareReducer(this._state.sideBare, action)
         rerenderEntireTree()

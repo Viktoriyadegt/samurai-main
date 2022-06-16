@@ -3,34 +3,30 @@ import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {getUserProfile, InitialStateType1, setUserProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import { RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 
 
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
+        debugger
 
-        let userId = Number(this.props.match.params.userId);
-        if (!userId) {
-            return (
-                userId = 2
-            )
-        }
-        this.props.getUserProfile(userId)
+        let userId = Number(this.props.match.params.userId)
+        userId
+            ? this.props.getUserProfile(userId)
+            : this.props.getUserProfile(23043)
     }
 
     render() {
 
 
-
+        debugger
         return (
             <Profile {...this.props} profile={this.props.profilePage.profile}/>
         )
     }
 }
-
-
 
 
 type PropsType = RouteComponentProps<PathParamsType> & MapStateToPropsType & MapDispatchToPropsType

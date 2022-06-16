@@ -3,25 +3,28 @@ import s from './ProfileInfo.module.css'
 import {ProfilePropsType} from "../../../redux/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
 import img from "./../../../images/images.png"
+import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: ProfilePropsType | null
 }
-export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
 
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
+debugger
     {
         if (!props.profile)
             return <Preloader/>
     }
-    debugger
     return <div>
-        <div>
+      {/*  <div>
             <img
                 src={"https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"}/>
-        </div>
+        </div>*/}
+
         <div className={s.descriptionBlock}>
             <div >
                 <img src={props.profile.photos.small !== null ? props.profile.photos.small : img}/>
+                <ProfileStatus status={'hello my friends'}/>
                 <div className={s.name}>{props.profile.fullName}</div>
             </div>
             <div>Contacts:</div>
@@ -37,6 +40,5 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
         </ul>
 
         </div>
-        <div>Status:{props.profile.lookingForAJobDescription}</div>
     </div>
 }

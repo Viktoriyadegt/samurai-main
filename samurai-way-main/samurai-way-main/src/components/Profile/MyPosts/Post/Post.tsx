@@ -9,6 +9,7 @@ type postPropsType = {
 
 
 export const Post: React.FC<postPropsType> = (props) => {
+    debugger
     return (
         <div>
             <div className={s.item}>

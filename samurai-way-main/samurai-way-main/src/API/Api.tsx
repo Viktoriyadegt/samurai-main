@@ -35,7 +35,8 @@ export const userAPI = {
             .then(response => response.data)
     },
     profile(userId: number) {
-        return instance.get<ProfilePropsType>(`profile/` + userId)
+        debugger
+        return instance.get<ProfilePropsType>(`profile/${userId}`)
             .then(response => response.data)
     }
 }
