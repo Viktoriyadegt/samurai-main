@@ -10,6 +10,12 @@ type ResponseType = {
     resultCode: number
 }
 
+export type StatusResponseType = {
+    resultCode: number
+    message:Array<string>
+    data: { }
+}
+
 const instance = axios.create(
     {
         withCredentials: true,
@@ -33,13 +39,24 @@ export const userAPI = {
     unfollow(userId: number) {
         return instance.delete<ResponseType>(`follow/${userId}`)
             .then(response => response.data)
-    },
+    }
+}
+
+export const profileAPI = {
     profile(userId: number) {
-        debugger
         return instance.get<ProfilePropsType>(`profile/${userId}`)
+            .then(response => response.data)
+    },
+    getUserStatus(userId: number) {
+        return instance.get<string>(`profile/status/${userId}`)
+            .then(response => response.data)
+    },
+    updateUserStatus(status: string) {
+        return instance.put<StatusResponseType>(`profile/status`, {status})
             .then(response => response.data)
     }
 }
+
 
 
 export const authAPI = {

@@ -33,6 +33,7 @@ type dialogsPageType = {
     posts: Array<postPropsType>
     newChangePost: string
      profile:ProfilePropsType | null
+     status:string
 
 
 }
@@ -77,7 +78,8 @@ const store: StorePropsType = {
             ],
             newChangePost: 'naruto',
 
-            profile:{} as ProfilePropsType
+            profile:{} as ProfilePropsType,
+            status:''
         },
         dialogsPage: {
             dialogs: [
@@ -121,7 +123,7 @@ const store: StorePropsType = {
         return this._state
     },
     dispatch(action) {
-        //this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
         this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
         this._state.sideBare = SideBareReducer(this._state.sideBare, action)
         rerenderEntireTree()

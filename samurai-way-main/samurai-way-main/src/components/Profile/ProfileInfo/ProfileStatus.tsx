@@ -1,39 +1,58 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
+import {StatusResponseType} from "../../../API/Api";
 
 
 export type ProfileStatusType = {
     status: string
+    updateStatus: (status: string) => void
 }
 
 export class ProfileStatus extends React.Component<ProfileStatusType> {
     state = {
-        editMode: false
+        editMode: false,
+        status: this.props.status
     }
 
-    activeEditModeHandler(){
+    activeEditModeHandler = () => {
         this.setState(
             {editMode: true}
         )
     }
 
-    deActiveEditModeHandler(){
+    deActiveEditModeHandler = () => {
         this.setState(
-            {editMode : false}
+            {editMode: false}
         )
+        this.props.updateStatus(this.state.status)
     }
 
 
+    onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState(
+            {status: e.currentTarget.value}
+        )
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<{}>, snapshot?: any) {
+        console.log('update')
+        if (prevProps.status != this.props.status) {
+            this.setState(
+                {status: this.props.status}
+            )
+        }
+    }
+
     render() {
-        debugger
         return <div>
             {!this.state.editMode &&
                 <div>
-                    <span onDoubleClick={this.activeEditModeHandler.bind(this)} >{this.props.status}</span>
+                    <span onDoubleClick={this.activeEditModeHandler}>{this.props.status}</span>
                 </div>
             }
             {this.state.editMode &&
                 <div>
-                    <input value={this.props.status} autoFocus onBlur={this.deActiveEditModeHandler.bind(this)}/>
+                    <input value={this.state.status} onChange={this.onChangeStatusHandler} autoFocus
+                           onBlur={this.deActiveEditModeHandler}/>
                 </div>
             }
         </div>
