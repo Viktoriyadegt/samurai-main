@@ -1,10 +1,15 @@
 import React from 'react';
-import {DecoratedComponentClass, DecoratedFormProps, Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
-const Login = (values:any) => {
-    const submit = (values: any) => {
-        // print the form values to the console
-        console.log(values)
+type FormDataType = {
+    login: string
+    password: string
+    rememberMe: boolean
+}
+
+const Login = () => {
+    const submit = (formData: FormDataType) => {
+        console.log(formData)
     }
     return (
         <div>
@@ -15,21 +20,18 @@ const Login = (values:any) => {
 };
 
 
-
-
-let LoginForm: any = (props:any) => {
+let LoginForm = (props: InjectedFormProps<FormDataType>) => {
     const {handleSubmit} = props
     return <form onSubmit={handleSubmit}>
         <div><Field placeholder={'login'} component={'input'} name={'login'}/></div>
-        <div><Field placeholder={'password'}  component={'input'} name={'password'}/></div>
-        <div><Field type="checkbox"  component={'input'} name={'rememberMe'}/>remember me</div>
+        <div><Field placeholder={'password'} component={'input'} name={'password'}/></div>
+        <div><Field type="checkbox" component={'input'} name={'rememberMe'}/>remember me</div>
         <button>Login</button>
     </form>
 };
 
 
-
-const LoginReduxForm = reduxForm({
+const LoginReduxForm = reduxForm<FormDataType>({
     form: 'login'
 })(LoginForm)
 
