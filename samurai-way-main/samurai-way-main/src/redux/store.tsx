@@ -1,6 +1,6 @@
 import React from "react";
-import ProfileReducer, {addPostAC, onChangeNewPostAC, ProfilePropsType} from "./profile-reducer";
-import DialogsReducer, {sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+import ProfileReducer, {addPostAC, ProfilePropsType} from "./profile-reducer";
+import  {sendMessageAC} from "./dialogs-reducer";
 import SideBareReducer from "./sideBare-reducer";
 
 
@@ -20,6 +20,7 @@ type dialogPropsType = {
     id: number
     message: string
     likesCount: number
+     newChangePost?:string
 }
 
 type dialogsPageType = {
@@ -31,7 +32,6 @@ type dialogsPageType = {
 }
  type profilePageType = {
     posts: Array<postPropsType>
-    newChangePost: string
      profile:ProfilePropsType | null
      status:string
 
@@ -50,7 +50,6 @@ type dialogsPageType = {
  export type StorePropsType = {
     _state: rootStateType
     addPost: () => void
-    onChangeNewPost: (newChangePost: string) => void
     subscribe: (observer: () => void) => void
     getState: () => rootStateType
     dispatch: (action: ActionsTypes) => void
@@ -59,8 +58,6 @@ type dialogsPageType = {
 }
  type ActionsTypes =
     ReturnType<typeof addPostAC>
-    | ReturnType<typeof onChangeNewPostAC>
-    | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendMessageAC>
 
 
@@ -76,7 +73,6 @@ const store: StorePropsType = {
                 {id: 4, message: "Hi, my friend!", likesCount: 56},
                 {id: 5, message: "YoYoYo", likesCount: 98}
             ],
-            newChangePost: 'naruto',
 
             profile:{} as ProfilePropsType,
             status:''
@@ -104,19 +100,13 @@ const store: StorePropsType = {
         rerenderEntireTree = observer
 
     },
-    onChangeNewPost(newChangePost: string) {
-        this._state.profilePage.newChangePost = newChangePost
-        rerenderEntireTree()
-
-    },
     addPost() {
         const newPost: postPropsType = {
             id: 6,
-            message: this._state.profilePage.newChangePost,
+            message: '',
             likesCount: 0
         }
         this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newChangePost = ''
         rerenderEntireTree()
     },
     getState() {
@@ -124,7 +114,6 @@ const store: StorePropsType = {
     },
     dispatch(action) {
         this._state.profilePage = ProfileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
         this._state.sideBare = SideBareReducer(this._state.sideBare, action)
         rerenderEntireTree()
     }

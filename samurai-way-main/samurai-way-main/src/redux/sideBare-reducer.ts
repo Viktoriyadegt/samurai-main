@@ -1,10 +1,8 @@
-import {addPostAC, onChangeNewPostAC} from "./profile-reducer";
-import {sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+import {addPostAC} from "./profile-reducer";
+import {sendMessageAC} from "./dialogs-reducer";
 
 type ActionsTypes =
     ReturnType<typeof addPostAC>
-    | ReturnType<typeof onChangeNewPostAC>
-    | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendMessageAC>
 
 type sideBarePageType = {}

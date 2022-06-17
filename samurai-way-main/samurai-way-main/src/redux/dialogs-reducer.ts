@@ -1,9 +1,7 @@
-import {addPostAC, onChangeNewPostAC} from "./profile-reducer";
+import {addPostAC} from "./profile-reducer";
 
 type ActionsTypes =
     ReturnType<typeof addPostAC>
-    | ReturnType<typeof onChangeNewPostAC>
-    | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendMessageAC>
 
 
@@ -31,27 +29,19 @@ let initialState = {
         {id: 3, message: "Yu"},
         {id: 4, message: "Yu"},
         {id: 5, message: "Yu"},
-    ] as Array<messagePropsType>,
-    newMessageBody: ''
+    ] as Array<messagePropsType>
 
 }
-const DialogsReducer = (state:InitialStateType = initialState, action:ActionsTypes):InitialStateType => {
+const DialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case "UPDATE-NEW-MESSAGE-BODY": {
-           return {
-               ...state,
-               newMessageBody: action.body
-           }
-        }
         case "SEND-MESSAGE": {
             const body: messagePropsType = {
                 id: 6,
-                message: state.newMessageBody,
+                message: action.newMessageBody,
             }
             return {
                 ...state,
-                messages:[...state.messages, body],
-                newMessageBody: ''
+                messages: [...state.messages, body]
             }
         }
         default :
@@ -59,13 +49,8 @@ const DialogsReducer = (state:InitialStateType = initialState, action:ActionsTyp
     }
 
 }
-export const updateNewMessageBodyAC = (body: string) => ({
-    type: 'UPDATE-NEW-MESSAGE-BODY',
-    body: body
-} as const)
-
-export const sendMessageAC = () => ({
-    type: 'SEND-MESSAGE',
+export const sendMessageAC = (newMessageBody: string) => ({
+    type: 'SEND-MESSAGE', newMessageBody
 } as const)
 
 
