@@ -4,7 +4,9 @@ import DialogsReducer from "./dialogs-reducer";
 import sideBareReducer from "./sideBare-reducer";
 import UsersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
+import { reducer as formReducer } from 'redux-form'
+
 
 
 
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
     sideBare: sideBareReducer,
     usersPage: UsersReducer,
     auth: authReducer,
+    form: formReducer
+
 })
 
 // @ts-ignore
