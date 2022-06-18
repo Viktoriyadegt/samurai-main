@@ -1,6 +1,5 @@
 import axios from "axios";
 import {UsersPropsType} from "../redux/users-reducer";
-import {HeaderPropsType} from "../components/Header/HeaderContainer";
 import {ProfilePropsType} from "../redux/profile-reducer";
 
 type ResponseType = {
@@ -10,10 +9,20 @@ type ResponseType = {
     resultCode: number
 }
 
-export type StatusResponseType = {
+export type DataType = {
+    id: number
+    email: string
+    login: string
+}
+
+export type DataTypeLogin = {
+    userId: number
+}
+
+type ResponseDataType<T = {}> = {
     resultCode: number
-    message:Array<string>
-    data: { }
+    message: Array<string>
+    data: T
 }
 
 const instance = axios.create(
@@ -52,18 +61,30 @@ export const profileAPI = {
             .then(response => response.data)
     },
     updateUserStatus(status: string) {
-        return instance.put<StatusResponseType>(`profile/status`, {status})
+        return instance.put<ResponseDataType>(`profile/status`, {status})
             .then(response => response.data)
     }
 }
 
 
-
 export const authAPI = {
     header() {
-        return instance.get<HeaderPropsType>(`auth/me`)
+        return instance.get<ResponseDataType<DataType>>(`auth/me`)
+            .then(response => {
+                return response.data
+            })
+    },
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<ResponseDataType<DataTypeLogin>>(`auth/login`, {email, password, rememberMe})
+            .then(response => {
+                return response.data
+            })
+    },
+    logout() {
+        return instance.delete<ResponseDataType<DataTypeLogin>>(`auth/login`,)
             .then(response => {
                 return response.data
             })
     }
+
 }

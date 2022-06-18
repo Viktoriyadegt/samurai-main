@@ -9,6 +9,7 @@ export type DataType = {
     id: number
     email: string
     login: string
+    isAuth: boolean
 }
 
 export type InitialStateType = typeof initialState
@@ -26,8 +27,7 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
         case "SET_AUTH_DATA": {
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.data
             }
         }
 
@@ -36,7 +36,7 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
     }
 
 }
-export const setAuthDataAC = (id: number, email: string, login: string) => ({
+export const setAuthDataAC = (id: number, email: string, login: string, isAuth:boolean) => ({
     type: 'SET_AUTH_DATA',
     data: {id, email, login} as const
 
@@ -48,7 +48,29 @@ export const getAuthData = (): ThunkType => {
     return (dispatch, getState) => {
         authAPI.header().then(data => {
             if (!data.resultCode) {
-                dispatch(setAuthDataAC(data.data.id, data.data.email, data.data.login))
+                dispatch(setAuthDataAC(data.data.id, data.data.email, data.data.login, true))
+            }
+
+        })
+    }
+}
+
+export const login = (email:string, password:string,rememberMe:boolean): ThunkType => {
+    return (dispatch, getState) => {
+        authAPI.login(email, password,rememberMe).then(data => {
+            if (!data.resultCode) {
+                dispatch(getAuthData())
+            }
+
+        })
+    }
+}
+
+export const logout = (): ThunkType => {
+    return (dispatch, getState) => {
+        authAPI.logout().then(data => {
+            if (!data.resultCode) {
+                dispatch(setAuthDataAC(0,'','null',false))
             }
 
         })

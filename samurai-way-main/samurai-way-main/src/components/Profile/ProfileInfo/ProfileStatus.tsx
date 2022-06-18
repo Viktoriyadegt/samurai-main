@@ -1,6 +1,4 @@
 import React, {ChangeEvent} from "react";
-import {StatusResponseType} from "../../../API/Api";
-
 
 export type ProfileStatusType = {
     status: string
