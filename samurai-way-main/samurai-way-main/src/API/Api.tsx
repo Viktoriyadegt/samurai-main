@@ -21,7 +21,7 @@ export type DataTypeLogin = {
 
 type ResponseDataType<T = {}> = {
     resultCode: number
-    message: Array<string>
+    messages: Array<string>
     data: T
 }
 

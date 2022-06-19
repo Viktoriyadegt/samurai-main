@@ -1,16 +1,18 @@
 import React from "react";
 import {Header} from "./Header";
-import {getAuthData, InitialStateType, login, logout} from "../../redux/auth-reducer";
+import {getAuthData, InitialStateType, logout} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 
 
 class HeaderContainer extends React.Component<HeaderType> {
+
     componentDidMount() {
         this.props.getAuthData()
     }
 
     render() {
+        debugger
         return (
             <>
                 <Header  {...this.props}/>
