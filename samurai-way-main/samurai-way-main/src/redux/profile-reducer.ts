@@ -132,6 +132,7 @@ type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
 export const getUserProfile = (userId: number): ThunkType => {
     return (dispatch) => {
+        debugger
         profileAPI.profile(userId).then(data => {
             dispatch(setUserProfile(data));
         })

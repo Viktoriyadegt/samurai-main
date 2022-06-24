@@ -27,7 +27,7 @@ const Login = (props: LoginPropsType) => {
 
 type MapStatePropsType = {
     isAuth: boolean
-    userId:number
+    userId:number | null
 }
 type MapDispatchPropsType = {
     login: (email: string, password: string, rememberMe: boolean) => void

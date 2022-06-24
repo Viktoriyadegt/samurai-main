@@ -15,9 +15,9 @@ export type DataType = {
 
 export type InitialStateType = typeof initialState
 let initialState = {
-    id: 2,
-    email: 'bla@.com',
-    login: 'bls',
+    id: null as null | number,
+    email:  null as null | string,
+    login: null as null | string,
     isAuth: false
 
 
@@ -37,18 +37,19 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
     }
 
 }
-export const setAuthDataAC = (id: number, email: string, login: string, isAuth:boolean) => ({
+export const setAuthDataAC = (id: number, email: string, login: string, isAuth: boolean) => ({
     type: 'SET_AUTH_DATA',
     data: {id, email, login, isAuth} as const
 
 })
 
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes| FormAction>
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes | FormAction>
 
 export const getAuthData = (): ThunkType => {
+    debugger
     return (dispatch) => {
-        authAPI.header().then(data => {
-            if (!data.resultCode) {
+        authAPI.me().then(data => {
+            if (data.resultCode === 0) {
                 dispatch(setAuthDataAC(data.data.id, data.data.email, data.data.login, true))
             }
 
@@ -57,14 +58,14 @@ export const getAuthData = (): ThunkType => {
     }
 }
 
-export const login = (email:string, password:string,rememberMe:boolean): ThunkType => {
+export const login = (email: string, password: string, rememberMe: boolean): ThunkType => {
+    debugger
     return (dispatch) => {
-        authAPI.login(email, password,rememberMe).then(data => {
-            if (!data.resultCode) {
+        authAPI.login(email, password, rememberMe).then(data => {
+            if (data.resultCode === 0) {
                 dispatch(getAuthData())
-            }else{
-                console.log(data.messages)
-                let message = data.messages.length>0? data.messages[0]:'Something error!'
+            } else {
+                let message = data.messages.length > 0 ? data.messages[0] : 'Something error!'
 
                 dispatch(stopSubmit('login', {_error: message}))
             }
@@ -74,10 +75,11 @@ export const login = (email:string, password:string,rememberMe:boolean): ThunkTy
 }
 
 export const logout = (): ThunkType => {
+    debugger
     return (dispatch) => {
         authAPI.logout().then(data => {
-            if (!data.resultCode) {
-                dispatch(setAuthDataAC(0,'','null',false))
+            if (data.resultCode === 0) {
+                dispatch(setAuthDataAC(0, '', 'null', false))
             }
 
         })

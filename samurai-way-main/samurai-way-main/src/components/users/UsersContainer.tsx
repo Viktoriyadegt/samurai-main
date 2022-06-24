@@ -96,4 +96,4 @@ export default compose<ComponentType>(connect(mapStateToProps, {
         getUsers,
         unfollow,
         follow
-    }), withAuthRedirectComponent)(UsersContainer)
+    }))(UsersContainer)

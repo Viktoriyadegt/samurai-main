@@ -9,14 +9,16 @@ import {compose} from "redux";
 
 class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
-        let userId = Number(this.props.match.params.userId)
+        debugger
+        let userId:number| null = Number(this.props.match.params.userId)
         if (!userId) {
             userId = this.props.userId
+            if(!userId){
+                this.props.history.push('/login')
+            }
         }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
-
-
     }
 
     render() {
@@ -37,27 +39,28 @@ type PathParamsType = {
 
 }
 type MapDispatchToPropsType = {
-    getUserProfile: (userId: number) => void
-    getStatus: (userId: number) => void
+    getUserProfile: (userId: number |null) => void
+    getStatus: (userId: number | null) => void
     updateStatus: (status: string) => void
 
 }
 type MapStateToPropsType = {
     profilePage: InitialStateType1
     status: string
-   userId:number
+    userId: number | null
 
 }
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profilePage: state.profilePage,
     status: state.profilePage.status,
-userId:state.auth.id
+    userId: state.auth.id
 })
 
 export default compose<ComponentType>(
     connect(mapStateToProps, {setUserProfile, getUserProfile, getStatus, updateStatus}),
     withRouter)(ProfileContainer)
+
 
 
 

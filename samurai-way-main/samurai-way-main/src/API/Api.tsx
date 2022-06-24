@@ -68,7 +68,7 @@ export const profileAPI = {
 
 
 export const authAPI = {
-    header() {
+    me() {
         return instance.get<ResponseDataType<DataType>>(`auth/me`)
             .then(response => {
                 return response.data

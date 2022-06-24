@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderPropsType> = (props) => {
 
                 {props.auth.isAuth
                     ? <div>{props.auth.login} --- <button onClick={props.logout}>logout</button></div>
-                    : <NavLink to={'/login/'}>LOGIN</NavLink>}
+                    : <NavLink to={'/login'}>LOGIN</NavLink>}
             </div>
         </header>
     )
