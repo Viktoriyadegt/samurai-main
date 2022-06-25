@@ -129,15 +129,14 @@ export const followingIsProgressAC = (isFetching: boolean, userId: number) => ({
 
  type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
-export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
-    return (dispatch,
-            getState) => {
+export const requestUsers = (page: number, pageSize: number): ThunkType => {
+    return (dispatch) => {
         dispatch(toggleIsFetchingAC(true))
-        userAPI.getUser(currentPage, pageSize).then(data => {
+        dispatch(setCurrentPageAC(page))
+        userAPI.getUser(page, pageSize).then(data => {
             dispatch(toggleIsFetchingAC(false))
             dispatch(setUsersAC(data.items));
             dispatch(setTotalUserCountAC(data.totalCount));
-            dispatch(setCurrentPageAC(currentPage))
         })
     }
 }

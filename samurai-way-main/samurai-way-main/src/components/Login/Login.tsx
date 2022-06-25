@@ -54,7 +54,7 @@ let LoginForm = (props: InjectedFormProps<FormDataType>) => {
         <div><Field placeholder={'email'} component={Input} name={'email'} validate={[required]}/></div>
         <div><Field type="password" placeholder={'password'} component={Input} name={'password'}
                     validate={[required]}/></div>
-        <div><Field type="checkbox" component={Input} name={'rememberMe'} validate={[required]}/>remember me</div>
+        <div><Field type="checkbox" component={Input} name={'rememberMe'} />remember me</div>
         {props.error&&<div className={style.formSummaryError}>{props.error}</div>}
 
         <button>Login</button>
