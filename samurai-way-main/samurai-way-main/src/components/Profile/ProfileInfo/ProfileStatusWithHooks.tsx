@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ChangeEventHandler, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 
 export type ProfileStatusType = {
     status: string
@@ -9,6 +9,10 @@ export const ProfileStatus = (props: ProfileStatusType) => {
 
     const [editMode, setEditMode] = useState(false);
     const [status, setStatus] = useState(props.status);
+
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
 
     const activeEditModeHandler = () => {
         setEditMode(true)
@@ -23,15 +27,6 @@ export const ProfileStatus = (props: ProfileStatusType) => {
     const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
     }
-
-    // componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<{}>, snapshot?: any) {
-    //     console.log('update')
-    //     if (prevProps.status != this.props.status) {
-    //         this.setState(
-    //             {status: this.props.status}
-    //         )
-    //     }
-    // }
 
     return <div>
         {!editMode &&
